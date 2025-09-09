@@ -21,22 +21,23 @@ The ServiceNow portion included these key components:
    - `EC2 Instance` – stores instance name, ID, and status (`ON` or `OFF`).  
    - `Remediation Log` – tracks remediation attempts, payloads, responses, status codes, and success flags.  
 
-   📸 *Screenshot*: EC2 Instance table with populated records (show ON/OFF status).  
-   📸 *Screenshot*: Remediation Log table with sample log entry.  
+   📸 EC2 Instance table with populated records (show ON/OFF status).  ![EC2 Instance table with populated records (show ON/OFF status)](assets/isntance_off.png)
+   
+   📸 Remediation Log table with sample log entry. ![Remediation Log table with sample log entry](assets/remediation_log.png)
 
-2. **UI Action** – *Trigger EC2 Remediation*  
+3. **UI Action** – *Trigger EC2 Remediation*  
    - Added as a form button on EC2 Instance records.  
    - Executes client-side script using GlideAjax.  
 
-   📸 *Screenshot*: EC2 Instance record form with the **Trigger EC2 Remediation** button.  
+   📸 EC2 Instance record form with the **Trigger EC2 Remediation** button. ![EC2 Instance record form with the **Trigger EC2 Remediation** button](assets/instance_ui_action.jpg) 
 
-3. **Script Include** – *EC2RemediationHelper*  
+4. **Script Include** – *EC2RemediationHelper*  
    - Handles outbound REST requests via the Connection & Credential Store (CCS).  
    - Reads instance ID, calls the AWS Integration Server, and inserts log entries.  
 
    📸 *Screenshot*: Script Include definition in ServiceNow Studio.  
 
-4. **Flow Designer Workflow**  
+5. **Flow Designer Workflow**  
    - Trigger: When EC2 Instance status updates to OFF.  
    - Actions:  
      - Create log record  
@@ -45,12 +46,12 @@ The ServiceNow portion included these key components:
 
    📸 *Screenshot*: Flow Designer showing trigger + actions.  
 
-5. **Knowledge Base Integration**  
+6. **Knowledge Base Integration**  
    - Created KB article “EC2 Remediation when OFF” with keywords for AI Search discoverability.  
 
    📸 *Screenshot*: Published KB article content.  
 
-6. **Connection & Credential Store**  
+7. **Connection & Credential Store**  
    - Alias: *AWS Integration Server C C Alias*  
    - Connection: Host + base path `/api/v1/queue/start`  
    - Credential: Basic Auth (admin user)  
