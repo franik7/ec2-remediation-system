@@ -35,7 +35,7 @@ The ServiceNow portion included these key components:
    - Handles outbound REST requests via the Connection & Credential Store (CCS).  
    - Reads instance ID, calls the AWS Integration Server, and inserts log entries.  
 
-   📸 *Screenshot*: Script Include definition in ServiceNow Studio.  
+   📸 Script Include definition in ServiceNow Studio. ![Script Include definition in ServiceNow Studio](assets/script_include.png)  
 
 5. **Flow Designer Workflow**  
    - Trigger: When EC2 Instance status updates to OFF.  
@@ -44,26 +44,26 @@ The ServiceNow portion included these key components:
      - Run AI Search against Knowledge Base  
      - Post Slack notification via webhook  
 
-   📸 *Screenshot*: Flow Designer showing trigger + actions.  
+   📸 Flow Designer showing trigger + actions. ![Flow Designer showing trigger + actions](assets/flow_designer.png)   
 
 6. **Knowledge Base Integration**  
    - Created KB article “EC2 Remediation when OFF” with keywords for AI Search discoverability.  
 
-   📸 *Screenshot*: Published KB article content.  
+   📸 Published KB article content. ![Published KB article content](assets/kb_article.png)   
 
 7. **Connection & Credential Store**  
    - Alias: *AWS Integration Server C C Alias*  
    - Connection: Host + base path `/api/v1/queue/start`  
    - Credential: Basic Auth (admin user)  
 
-   📸 *Screenshot*: Connection & Credential Alias configuration.  
+   📸 Connection & Credential Alias configuration. ![Connection & Credential Alias configuration](assets/cc_alias_config.png)   
 
 ---
 
 ## Architecture Diagram
 The workflow is illustrated below:
 
-📸 *Insert your diagram here (`Diagram.png`)*  
+📸 Architecture Diagram ![Architecture Diagram](Diagram.png)   
 
 Flow of events:  
 1. AWS Integration Server updates ServiceNow EC2 Instance table.  
@@ -103,8 +103,8 @@ For Netflix DevOps engineers, the workflow is:
 5. **Audit**:  
    Remediation Log captures the attempt, payload, response, and success flag.  
 
-📸 *Screenshot*: Slack message showing KB + instance record link.  
-📸 *Screenshot*: Updated EC2 record status after remediation (OFF → ON).  
+📸 Slack message showing KB + instance record link. ![Slack message showing KB + instance record link](assets/slack_message.jpg) 
+📸 Updated EC2 record status after remediation (OFF → ON). ![Updated EC2 record status after remediation (OFF → ON)](assets/updated_instance_status.jpg)  
 
 ---
 
