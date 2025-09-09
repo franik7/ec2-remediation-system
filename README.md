@@ -10,7 +10,7 @@ The purpose is to provide Netflix’s DevOps team with a **centralized response 
 - Allows engineers to remediate the instance with a **one-click UI Action**  
 - Logs every remediation attempt in a dedicated table for auditing  
 
-📸   ![ServiceNow application scope showing **EC2 Monitoring and Remediation** with tables included](assets/initial_setup.png)
+📸 ServiceNow application scope showing **EC2 Monitoring and Remediation** with tables included   ![ServiceNow application scope showing **EC2 Monitoring and Remediation** with tables included](assets/initial_setup.png)
 
 ---
 
