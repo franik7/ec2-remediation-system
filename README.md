@@ -65,15 +65,32 @@ The workflow is illustrated below:
 
 📸 Architecture Diagram ![Architecture Diagram](Diagram.png)   
 
-Flow of events:  
-1. AWS Integration Server updates ServiceNow EC2 Instance table.  
-2. Flow triggers when status = OFF.  
-3. AI Search retrieves KB article.  
-4. Slack webhook sends alert with KB link.  
-5. Engineer clicks remediation UI Action.  
-6. Script Include executes REST call.  
-7. Remediation Log updated.  
-8. Instance status returns to ON.  
+## Flow of Events
+
+1. EC2 Instance status changes to OFF (simulated).  
+2. AWS Integration Server detects the change and updates the ServiceNow Custom EC2 Instance table.  
+3. A Flow Trigger fires when the EC2 Instance status = OFF.  
+
+### Remediation Flow  
+4. AI Search queries the Knowledge Base for remediation instructions.  
+5. Slack Notification is sent via webhook with:  
+   - an alert of the problem, and  
+   - a direct link to the KB article.  
+6. The Engineer reviews the KB and identifies the remediation procedure.  
+7. The Engineer opens the EC2 Instance record and clicks the Remediation UI Action.  
+8. The Script Include executes the REST call to remediate the instance.  
+9. The Remediation Log Table is updated with log details of the action.  
+10. The EC2 Instance status is refreshed in ServiceNow to capture the latest state.  
+11. The EC2 Instance status returns to ON, confirming successful remediation.  
+
+### Incident Table Flow  
+12. A record is created in the EC2 Monitoring Incidents table when the status changes to OFF, and an SLA timer (30 seconds for testing) starts.  
+13. If, after the SLA wait, the EC2 Instance status = ON:  
+    - The incident is automatically updated to Complete/Resolved, and  
+    - A Slack Notification is sent: "The issue has been remediated."  
+14. If, after the SLA wait, the EC2 Instance status = OFF:  
+    - The incident remains Open for manual follow-up, and  
+    - No "remediated" Slack message is sent.  
 
 ---
 
