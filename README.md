@@ -63,7 +63,7 @@ The ServiceNow portion included these key components:
 ## Architecture Diagram
 The workflow is illustrated below:
 
-📸 Architecture Diagram ![Architecture Diagram](Diagram.pg)   
+📸 Architecture Diagram ![Architecture Diagram](Diagram.png)   
 
 ## Flow of Events
 
