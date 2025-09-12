@@ -21,7 +21,7 @@ The ServiceNow portion included these key components:
    - `EC2 Instance` – stores instance name, ID, and status (`ON` or `OFF`).  
    - `Remediation Log` – tracks remediation attempts, payloads, responses, status codes, and success flags.  
 
-   📸 EC2 Instance table with populated records (show ON/OFF status).  ![EC2 Instance table with populated records (show ON/OFF status)](assets/isntance_off.png)
+   📸 EC2 Instance table with populated records (show ON/OFF status).  ![EC2 Instance table with populated records (show ON/OFF status)](assets/instance_off.png)
    
    📸 Remediation Log table with sample log entry. ![Remediation Log table with sample log entry](assets/remediation_log.png)
 
