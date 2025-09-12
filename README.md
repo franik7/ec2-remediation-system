@@ -106,11 +106,8 @@ During implementation, the following improvements were applied for reliability a
 - **Slack Messaging**: Used `<URL|label>` formatting to shorten links and improve readability.  
 - **Incident Tracking**: Added a custom *EC2 Monitoring Incidents* table. Every time an EC2 instance goes OFF, a new incident record is automatically created.  
 - **SLA Enforcement**: Defined a 30-second SLA (for testing) for the remediation on the incident table. If the instance status returns to **ON** within that period:  
-  - the incident in the *EC2 Monitoring Incidents* table is auto-closed, and  
-  - a Slack message is sent: *“The issue has been remediated. The instance status is ON.”*.
-
-If the status remains **OFF**, the incident stays open for manual follow-up, and
-  - a Slack message is sent: *“Critical Alert – remediation failed. EC2 Instance is still OFF beyond SLA. Escalate to on-call engineer immediately.”*. 
+  - the incident in the *EC2 Monitoring Incidents* table is auto-closed, and a Slack message is sent: *“The issue has been remediated. The instance status is ON.”*.
+  - If the status remains **OFF**, the incident stays open for manual follow-up, and a Slack message is sent: *“Critical Alert – remediation failed. EC2 Instance is still OFF beyond SLA. Escalate to on-call engineer immediately.”*. 
 
 ---
 
