@@ -19,11 +19,15 @@ The ServiceNow portion included these key components:
 
 1. **Custom Tables**  
    - `EC2 Instance` – stores instance name, ID, and status (`ON` or `OFF`).  
-   - `Remediation Log` – tracks remediation attempts, payloads, responses, status codes, and success flags.  
+   - `Remediation Log` – tracks remediation attempts, payloads, responses, status codes, and success flags.
+   - `EC2 Monitoring Incidents` – tracks incidents created when an instance goes OFF, with SLA timers applied.  
+
 
    📸 EC2 Instance table with populated records (show ON/OFF status).  ![EC2 Instance table with populated records (show ON/OFF status)](assets/instance_off.png)
    
    📸 Remediation Log table with sample log entry. ![Remediation Log table with sample log entry](assets/remediation_log.png)
+
+   📸 EC2 Monitoring Incidents table with open records. ![EC2 Monitoring Incidents table](assets/incidents_table.png) 
 
 3. **UI Action** – *Trigger EC2 Remediation*  
    - Added as a form button on EC2 Instance records.  
@@ -42,7 +46,7 @@ The ServiceNow portion included these key components:
    - Actions:  
      - Create log record  
      - Run AI Search against Knowledge Base  
-     - Post Slack notification via webhook  
+     - Post Slack notifications via webhook
 
    📸 Flow Designer showing trigger + actions. ![Flow Designer showing trigger + actions](assets/flow_designer.jpg)   
 
@@ -89,8 +93,8 @@ The workflow is illustrated below:
     - The incident is automatically updated to Complete/Resolved, and  
     - A Slack Notification is sent: "The issue has been remediated."  
 14. If, after the SLA wait, the EC2 Instance status = OFF:  
-    - The incident remains Open for manual follow-up, and  
-    - No "remediated" Slack message is sent.  
+    - The incident remains **Open (SLA Breach)** for manual follow-up, and  
+    - A Slack Notification is sent alerting engineers that manual remediation is required.  
 
 ---
 
@@ -103,8 +107,9 @@ During implementation, the following improvements were applied for reliability a
 - **Incident Tracking**: Added a custom *EC2 Monitoring Incidents* table. Every time an EC2 instance goes OFF, a new incident record is automatically created.  
 - **SLA Enforcement**: Defined a 30-second SLA (for testing) for the remediation on the incident table. If the instance status returns to **ON** within that period:  
   - the incident in the *EC2 Monitoring Incidents* table is auto-closed, and  
-  - a Slack message is sent: *“The issue has been remediated”*.  
-  If the status remains **OFF**, the incident stays open for manual follow-up.  
+  - a Slack message is sent: *“The issue has been remediated. The instance status is ON.”*.  
+  If the status remains **OFF**, the incident stays open for manual follow-up, and
+  - a Slack message is sent: *“Critical Alert – remediation failed. EC2 Instance is still OFF beyond SLA. Escalate to on-call engineer immediately.”*. 
 
 ---
 
@@ -124,10 +129,16 @@ For Netflix DevOps engineers, the workflow is:
    Script Include executes outbound REST → AWS Integration Server.  
 
 5. **Audit**:  
-   Remediation Log captures the attempt, payload, response, and success flag.  
+   Remediation Log captures the attempt, payload, response, and success flag.
+
+6. **Resolution**:  
+   If the instance comes back ON, the Incident auto-resolves and a Slack confirmation is sent. If not, the Incident stays open and a Slack SLA breach message is sent.  
 
 📸 Slack message showing KB + instance record link. ![Slack message showing KB + instance record link](assets/slack_message.jpg) 
 📸 Updated EC2 record status after remediation (OFF → ON). ![Updated EC2 record status after remediation (OFF → ON)](assets/updated_instance_status.jpg)  
+📸 Slack messages after SLA has been reached (OFF and ON).  
+![Slack messages after SLA has been reached (OFF and ON)](assets/slack_messages.png)  
+
 
 ---
 
