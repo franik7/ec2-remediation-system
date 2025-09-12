@@ -98,7 +98,7 @@ The workflow is illustrated below:
 
 During implementation, the following improvements were applied for reliability and efficiency:  
 - **Scoped Application**: Ensured naming conventions matched AWS Integration Server requirements (`x_snc_ec2_monito_0`).  
-- **Error Handling (pre-built)**: Script Include captures and logs all error responses (`400`, `401`, `404`) with payload.  
+- **Error Handling (pre-built)**: Script Include captures and logs all error responses with payload.  
 - **Slack Messaging**: Used `<URL|label>` formatting to shorten links and improve readability.  
 - **Incident Tracking**: Added a custom *EC2 Monitoring Incidents* table. Every time an EC2 instance goes OFF, a new incident record is automatically created.  
 - **SLA Enforcement**: Defined a 30-second SLA (for testing) for the remediation on the incident table. If the instance status returns to **ON** within that period:  
